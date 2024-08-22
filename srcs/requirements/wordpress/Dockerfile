@@ -4,7 +4,7 @@ RUN apt update && apt upgrade -y && apt install -y \
     php7.3 \
     php-fpm \
     php-mysql \
-    wget \
+    wget
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 
