@@ -23,4 +23,6 @@ else
         --skip-email
 fi
 
-/usr/sbin/php-fpm7.4 -F
+chown -R www-data:www-data /var/www/html
+
+php-fpm7.4 -F -R
