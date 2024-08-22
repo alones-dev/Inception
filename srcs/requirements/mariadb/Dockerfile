@@ -12,5 +12,6 @@ RUN chmod +x /tmp/start.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["/tmp/start.sh"]
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+VOLUME ["/var/lib/mysql"]
+
+CMD ["/tmp/start.sh"]
