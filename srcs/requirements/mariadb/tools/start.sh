@@ -1,14 +1,9 @@
 #!/bin/bash
 
-service mysql start
+echo "CREATE DATABASE IF NOT EXISTS ${SQL_DATABASE};" > /etc/mysql/init.sql
+echo "CREATE USER IF NOT EXISTS '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';" >> /etc/mysql/init.sql
+echo "GRANT ALL PRIVILEGES ON *.* TO '${SQL_USER}'@'%' WITH GRANT OPTION;" >> /etc/mysql/init.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
+echo "FLUSH PRIVILEGES;" >> /etc/mysql/init.sql
 
-mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';" && \
-mysql -u root -e "FLUSH PRIVILEGES;" && \
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${SQL_DATABASE};" && \
-mysql -u root -e "GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO '${SQL_USER}'@'%' IDENTIFIED BY '${SQL_PASSWORD}';" && \
-mysql -u root -e "FLUSH PRIVILEGES;"
-
-sleep 1
-service mysql stop
-
-exec "$@"
+mysqld
