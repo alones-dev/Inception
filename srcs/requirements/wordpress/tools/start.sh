@@ -25,4 +25,4 @@ fi
 
 chown -R www-data:www-data /var/www/html
 
-php-fpm7.4 -F -R
+exec php-fpm7.4 -F -R
